@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#b2c2b9"
+    android:orientation="vertical">
+    
+     <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp" 
+                >
+            </LinearLayout>
+
+                  <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+				         <Button
+				            android:id="@+id/clear"
+				            android:layout_width="wrap_content"
+				            android:layout_height="wrap_content"
+				            android:text="Clear" 
+				            android:layout_weight="1"/>
+				 
+				        <Button
+				            android:id="@+id/save"
+				            android:layout_width="wrap_content"
+				            android:layout_height="wrap_content"
+				            android:text="Done" 
+				            android:layout_weight="1"/>
+			     </LinearLayout>	
+			     <LinearLayout
+			        android:id="@+id/mysignature"
+			        android:layout_width="fill_parent"
+			        android:layout_height="300dp" 
+			        android:background="#ffffff"
+			        android:orientation="vertical">
+			    </LinearLayout>        
+			
+       </LinearLayout>
+	
+
+</LinearLayout>
+

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="header"
+            android:src="@drawable/header" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date : "
+                    android:textColor="#ff000000"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/editformdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location : "
+                    android:textColor="#ff000000"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/editLocation"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Permit Manager : "
+                    android:textColor="#ff000000"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/editPermitManager"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Equipment : "
+                    android:textColor="#ff000000"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/editEquipment"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingTop="20dp"
+            android:text="Loto Steps : "
+            android:textColor="#ff000000"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/lotoStep1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="step 1" />
+
+        <EditText
+            android:id="@+id/lotoStep2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="step 2" />
+
+        <EditText
+            android:id="@+id/lotoStep3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="step 3" />
+
+        <EditText
+            android:id="@+id/lotoStep4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="step 4" />
+
+        <EditText
+            android:id="@+id/lotoStep5"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="step 5" />
+
+        <EditText
+            android:id="@+id/lotoStep6"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="step 6" />
+
+        <EditText
+            android:id="@+id/lotoStep7"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="step 7" />
+
+        <EditText
+            android:id="@+id/lotoStep8"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="step 8" />
+
+        <EditText
+            android:id="@+id/lotoStep9"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="step 9" />
+
+        <EditText
+            android:id="@+id/lotoStep10"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="step 10" />
+    </LinearLayout>
+
+</ScrollView>

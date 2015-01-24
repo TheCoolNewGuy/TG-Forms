@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TG Forms</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="date">Date:</string>
+    <string name="time">Time:</string>
+    <string name="Accident">Accident:</string>
+    <string name="Firstaid">First Aid:</string>
+    <string name="Details">Details:</string>
+    <string name="checkboxtext">demo</string>
+    <string name="nulltext"></string>
+    <string name="notes">Notes</string>
+    <string name="comment">Comments / Action within</string>
+    <string name="sitemanager">Site Manager: </string>
+    <string name="inspector">Inspector:</string>
+    <string name="CCS">Considerate Construtors Site:</string>
+    <string name="OS">No of Operatives on site:</string>
+    <string name="ss">No of subcontractors on site:</string>
+    <string name="signedfor">Signed for Client</string>
+    <string name="send">Send</string>
+    <string name="signedlabel">Signed Safety Advisor</string>
+    <string name="title_activity_capture_signature">Signature</string>
+    <string name="title_activity_send">SendActivity</string>
+    <string name="title_activity_home">Form List</string>
+
+</resources>

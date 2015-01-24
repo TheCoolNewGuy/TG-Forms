@@ -1,0 +1,112 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+    
+     <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp" 
+                >
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_graphic_round"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:paddingTop="10dp" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                     <TextView
+                        android:layout_width="115dp"
+                        android:layout_height="50dp"
+                        android:gravity="right"
+                        android:paddingRight="10dp"
+                        android:text="@string/signedlabel"
+                        android:textColor="#ff000000"
+                        android:textSize="16sp" />
+					  <ImageView
+					        android:id="@+id/imageView1"
+					        android:layout_width="200dp"
+					        android:layout_height="200dp"
+					        android:layout_gravity="center"
+					        android:src="@drawable/demosign" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    
+                    <EditText
+                        android:id="@+id/editdate1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapWords" 
+                        android:layout_marginTop="12dp"/>
+                </LinearLayout>
+              <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="115dp"
+                        android:layout_height="50dp"
+                        android:gravity="right"
+                        android:paddingRight="10dp"
+                        android:text="@string/signedfor"
+                        android:textColor="#ff000000"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/editsignedfor"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapWords" 
+                        android:layout_marginTop="12dp"/>
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <EditText
+                        android:id="@+id/editdate2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapWords" 
+                        android:layout_marginTop="12dp"/>
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+				    <Button
+				        android:id="@+id/send"
+				        android:layout_width="fill_parent"
+				        android:layout_height="wrap_content"
+				        android:layout_gravity="center"
+				        android:text="@string/send" />
+                </LinearLayout>
+			</LinearLayout>
+       </LinearLayout>
+	
+
+</LinearLayout>
