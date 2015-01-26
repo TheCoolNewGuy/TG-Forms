@@ -113,7 +113,7 @@ public class FragementOne extends android.support.v4.app.Fragment {
    			@Override
    			public void afterTextChanged(Editable s) {
    				// TODO Auto-generated method stub
-   				StoreData.Equipment="Equipment: "+editEquipment.getText().toString();
+   				StoreData.Equipment="Equipment : "+editEquipment.getText().toString();
    			}
 
   			@Override

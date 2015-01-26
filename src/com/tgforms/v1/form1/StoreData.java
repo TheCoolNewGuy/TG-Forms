@@ -17,13 +17,14 @@ public class StoreData implements Serializable{
 	public static String Location ="Location : ";
 	public static String Permit_manager="Permit Manager : ";
 	public static String Equipment ="Equipment : ";
-	public static String workComplete="Work Complete : ";
+	public static String workComplete="Work Complete(Print) : ";
 	
 	public static ArrayList<String> lotoSteps = new ArrayList<String>();
 	public static HashMap<String, ClearanceData> clearanceDataList;
 	
 	public static Bitmap workCompleteSignBitmap;
 	public static Bitmap headerBitmap;
+	public static boolean workCompleteSignDone=false;
 	
 	public static StringBuilder getData(){
 		

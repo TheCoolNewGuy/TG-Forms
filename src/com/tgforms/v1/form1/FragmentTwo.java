@@ -55,7 +55,7 @@ public class FragmentTwo extends android.support.v4.app.Fragment {
         
         for(int i=1;i<11;i++)
         {
-        	StoreData.clearanceDataList.put(String.valueOf(i), new ClearanceData("", null, "", null, "",false));
+        	StoreData.clearanceDataList.put(String.valueOf(i), new ClearanceData(i+". ", null, null, "n/a", "n/a", null, null, "n/a ", "n/a", false));
         }
         
         workComplete = (EditText) rootView.findViewById(R.id.editWorkComplete);
@@ -301,14 +301,9 @@ public class FragmentTwo extends android.support.v4.app.Fragment {
 				// TODO Auto-generated method stub
 				
 				String value = editText.getText().toString();
-				
-				if(value.length()>0)
-				{
-					ClearanceData data = StoreData.clearanceDataList.get(String.valueOf(index+1));
-					data.setName(Integer.toString(index+1)+". "+editText.getText().toString());
-					data.setHasValue(true);
-				}
-				
+				ClearanceData data = StoreData.clearanceDataList.get(String.valueOf(index+1));
+				data.setName(Integer.toString(index+1)+". "+value);
+					
 			}
 			
 			@Override
@@ -348,6 +343,7 @@ public class FragmentTwo extends android.support.v4.app.Fragment {
              }else{
             	 //last signature
             	 StoreData.workCompleteSignBitmap=b;
+            	 StoreData.workCompleteSignDone=true;
              }
             	 
              
@@ -401,12 +397,43 @@ public class FragmentTwo extends android.support.v4.app.Fragment {
 			
 			public void onClick(View v) {
 				
-				Intent intent = new Intent(getActivity(), CaptureSignature.class);
-				intent.putExtra("view_id",v.getTag().toString());
-				getActivity().startActivityForResult(intent, 0);
+				ClearanceData data = getClearanceDataFromTag(v.getTag().toString());
+				if(data!=null){
+					
+					if(data.getName().length()>3){
+						Intent intent = new Intent(getActivity(), CaptureSignature.class);
+						intent.putExtra("view_id",v.getTag().toString());
+						getActivity().startActivityForResult(intent, 0);
+					}
+					
+				}else{
+				
+					if(Utilities.isFormOneComplete())
+					{
+						Intent intent = new Intent(getActivity(), CaptureSignature.class);
+						intent.putExtra("view_id",v.getTag().toString());
+						getActivity().startActivityForResult(intent, 0);
+					}
+					
+				}
 				
 			}
 		});
+    }
+    
+    private ClearanceData getClearanceDataFromTag(String tag)
+    {
+    	for (ClearanceData value : StoreData.clearanceDataList.values()) {
+    	    
+    		if(Integer.parseInt(tag)==Integer.parseInt(value.getSignCleartoClose().getTag().toString())){
+    			return value;
+    	    }else if(Integer.parseInt(tag)==Integer.parseInt(value.getSignCleartoOpen().getTag().toString())){
+    	    	return value;
+    	    }
+    	}
+		return null;
+    	
+    	
     }
     
     private void scaleImage(ImageView view,Bitmap bitMap)

@@ -81,13 +81,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:tag="1"
-                android:src="@drawable/demosign" />
+               	android:src="@drawable/demosign" />
 
             <EditText
                 android:id="@+id/form1Page2dopenate1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:tag="1"
                 android:hint="Date" />
 
@@ -105,6 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:tag="2"
+                android:enabled="false"
                 android:hint="Date" />
         </LinearLayout>
 
@@ -135,6 +137,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:tag="3"
                 android:hint="Date" />
 
@@ -151,6 +154,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:tag="4"
                 android:hint="Date" />
         </LinearLayout>
@@ -182,6 +186,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:tag="5"
                 android:hint="Date" />
 
@@ -198,6 +203,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:tag="6"
                 android:hint="Date" />
         </LinearLayout>
@@ -229,6 +235,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:tag="7"
                 android:hint="Date" />
 
@@ -245,6 +252,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:tag="8"
                 android:hint="Date" />
         </LinearLayout>
@@ -276,6 +284,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:tag="9"
                 android:hint="Date" />
 
@@ -292,6 +301,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:tag="10"
                 android:hint="Date" />
         </LinearLayout>
@@ -323,6 +333,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:tag="11"
                 android:hint="Date" />
 
@@ -339,6 +350,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:tag="12"
                 android:hint="Date" />
         </LinearLayout>
@@ -370,6 +382,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:tag="13"
                 android:hint="Date" />
 
@@ -386,6 +399,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:tag="14"
                 android:hint="Date" />
         </LinearLayout>
@@ -418,6 +432,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:tag="15"
+                android:enabled="false"
                 android:hint="Date" />
 
             <ImageView
@@ -433,6 +448,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:tag="16"
                 android:hint="Date" />
         </LinearLayout>
@@ -465,6 +481,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:tag="17"
+                android:enabled="false"
                 android:hint="Date" />
 
             <ImageView
@@ -481,6 +498,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:tag="18"
+                android:enabled="false"
                 android:hint="Date" />
         </LinearLayout>
 
@@ -512,6 +530,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:tag="19"
+                android:enabled="false"
                 android:hint="Date" />
 
             <ImageView
@@ -528,6 +547,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:tag="20"
+                android:enabled="false"
                 android:hint="Date" />
         </LinearLayout>
 
@@ -574,6 +594,7 @@
                 android:paddingTop="10dp"
                 android:src="@drawable/demosign" />
         </LinearLayout>
+        
     </LinearLayout>
 
 </ScrollView>

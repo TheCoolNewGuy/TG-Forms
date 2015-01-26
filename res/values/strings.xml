@@ -23,6 +23,6 @@
     <string name="signedlabel">Signed Safety Advisor</string>
     <string name="title_activity_capture_signature">Signature</string>
     <string name="title_activity_send">SendActivity</string>
-    <string name="title_activity_home">Form List</string>
+    <string name="title_activity_home">TG Forms</string>
 
 </resources>

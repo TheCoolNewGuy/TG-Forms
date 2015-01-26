@@ -3,9 +3,13 @@ package com.tgforms.v1.utils;
 import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 
+import com.tgforms.v1.form1.StoreData;
+
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.widget.Toast;
 
 public class Utilities {
 
@@ -36,4 +40,15 @@ public class Utilities {
         
        return date.toString();
     }
+	
+	public static boolean isFormOneComplete(){
+		return StoreData.Location.length()>11 && StoreData.Equipment.length()>11 && StoreData.Permit_manager.length()>17 && StoreData.workComplete.length()>23;
+	}
+	
+	public static void showToast(Context con,String message){
+		
+		Toast.makeText(con, message,
+				   Toast.LENGTH_LONG).show();
+		
+	}
 }

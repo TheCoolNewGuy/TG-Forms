@@ -16,21 +16,26 @@ public class ClearanceData {
 	String DateOpen;
 	Boolean HasValue;
 	
+
 	
 	public ClearanceData(String name, ImageView signCleartoOpen,
-			String dateClose, ImageView signCleartoClose, String dateOpen,Boolean hasValue) {
-		
+			Bitmap bitmapSignCleartoOpen, String base64SignCleartoOpen,
+			String dateClose, ImageView signCleartoClose,
+			Bitmap bitmapSignCleartoClose, String base64SignCleartoClose,
+			String dateOpen, Boolean hasValue) {
 		super();
-		
 		Name = name;
 		SignCleartoOpen = signCleartoOpen;
+		this.bitmapSignCleartoOpen = bitmapSignCleartoOpen;
+		this.base64SignCleartoOpen = base64SignCleartoOpen;
 		DateClose = dateClose;
 		SignCleartoClose = signCleartoClose;
+		this.bitmapSignCleartoClose = bitmapSignCleartoClose;
+		this.base64SignCleartoClose = base64SignCleartoClose;
 		DateOpen = dateOpen;
 		HasValue = hasValue;
 		
 	}
-	
 	public String getName() {
 		return Name;
 	}

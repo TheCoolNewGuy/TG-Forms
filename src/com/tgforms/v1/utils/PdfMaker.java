@@ -26,6 +26,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.tgforms.v1.form1.StoreData;
 import com.tgforms.v1.pojo.ClearanceData;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Environment;
@@ -42,7 +43,7 @@ public class PdfMaker {
 	private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
 			Font.BOLD);
 
-	public PdfMaker() {
+	public PdfMaker(Context con) {
 		String root = Environment.getExternalStorageDirectory().toString();
 		File myDir = new File(root + "/FormPdfs");
 		FILE = root + "/FormPdfs/form1.pdf";
@@ -54,6 +55,7 @@ public class PdfMaker {
 			document.open();
 			addContent(document);
 			document.close();
+			Utilities.showToast(con, "Form data saved at SD CARD/FormPdfs");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -62,17 +64,20 @@ public class PdfMaker {
 	
 	private static void addContent(Document document) throws DocumentException {
 
-		Anchor anchor = new Anchor("TG LOGO PERMIT", catFont);
-		anchor.setName("TG LOGO PERMIT");
+		Anchor anchor = new Anchor("LOTO", catFont);
+		anchor.setName("LOTO");
 
 		
 		// Second parameter is the number of the chapter
 		Chapter catPart = new Chapter(new Paragraph(anchor), 1);
 
-		Paragraph subPara = new Paragraph("", subFont);
+		Paragraph subPara = new Paragraph("TG LOGO PERMITS", subFont);
 		Section subCatPart = catPart.addSection(subPara);
-
 		addHeaderImage(subCatPart);
+		
+		Paragraph titlePara = new Paragraph("", subFont);
+		addEmptyLine(titlePara, 3);
+		subCatPart.add(titlePara);
 		
 		Paragraph firstP = new Paragraph(StoreData.FormDate + "  "
 				+ StoreData.Location);
@@ -82,6 +87,7 @@ public class PdfMaker {
 		Paragraph secondP = new Paragraph(StoreData.Permit_manager + "  "
 				+ StoreData.Equipment);
 		secondP.setAlignment(Element.ALIGN_CENTER);
+		addEmptyLine(secondP, 5);
 		subCatPart.add(secondP);
 
 		createList(subCatPart);
@@ -90,16 +96,37 @@ public class PdfMaker {
 		subCatPart.add(paragraph);
 
 		// add a table
-		createTable(subCatPart);
+		createTable(subCatPart,document);
+		
+		Paragraph empP = new Paragraph("");
+		addEmptyLine(empP, 3);
+		subCatPart.add(empP);
+		
+		Paragraph workP = new Paragraph(StoreData.workComplete);
+		workP.setAlignment(Element.ALIGN_CENTER);
+		subCatPart.add(workP);
 
+		Paragraph workS = new Paragraph("Work Complete (Sign) : ");
+		workS.setAlignment(Element.ALIGN_CENTER);
+		subCatPart.add(workS);
+		
+		addWCompleteSign(subCatPart);
+		
 		// now add all this to the document
 		document.add(catPart);
 
 
 	}
 
-	private static void createTable(Section subCatPart)
+	private static void createTable(Section subCatPart,Document document)
 			throws BadElementException {
+		
+		document.newPage();
+		
+		Paragraph title = new Paragraph("Clearance Holders",subFont);
+		addEmptyLine(title, 2);
+		subCatPart.add(title);
+		
 		PdfPTable table = new PdfPTable(5);
 
 		// t.setBorderColor(BaseColor.GRAY);
@@ -126,28 +153,41 @@ public class PdfMaker {
 		c1 = new PdfPCell(new Phrase("Date"));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
-		table.setHeaderRows(1);
-
+		
 		
 		for(int i=0; i<10;i++){
-            
-			   ClearanceData data = StoreData.clearanceDataList.get(String.valueOf(i+1));
+               
+				ClearanceData data = StoreData.clearanceDataList.get(String.valueOf(i+1));
 			   
 			    table.addCell(data.getName());
-			    Image img = getImageInstanceFromBitmap(data.getBitmapSignCleartoOpen());
-			    if(img!=null)
-			    	table.addCell("");
-			    else
-			    	table.addCell("");
-				table.addCell(data.getDateOpen());
-				img = getImageInstanceFromBitmap(data.getBitmapSignCleartoClose());
-			    if(img!=null)
-			    	table.addCell("");
-			    else
-			    	table.addCell("");
+			    
+			    Bitmap bitmap = data.getBitmapSignCleartoOpen();
+			    if(bitmap!=null){
+			    
+			    	Image img = getImageInstanceFromBitmap(data.getBitmapSignCleartoOpen());
+				    if(img!=null)
+				    	table.addCell(img);
+				    else
+				    	table.addCell("n/a");
+			    }else{
+			    	table.addCell("n/a");
+			    }
+			    
+			    table.addCell(data.getDateOpen());
+			    
+			    bitmap = data.getBitmapSignCleartoClose();
+			    if(bitmap!=null){
+			    	Image img = getImageInstanceFromBitmap(data.getBitmapSignCleartoClose());
+				    if(img!=null)
+				    	table.addCell(img);
+				    else
+				    	table.addCell("n/a");
+			    }else{
+			    	table.addCell("n/a");
+			    }
+			    
 				table.addCell(data.getDateClose());
-			   
-			   
+			    table.completeRow();
 	   }
 
 		subCatPart.add(table);
@@ -156,8 +196,8 @@ public class PdfMaker {
 
 	private static void createList(Section subCatPart) {
 
-		System.out.println("create list");
-		Paragraph title = new Paragraph("Loto Steps");
+		Paragraph title = new Paragraph("Loto Steps",subFont);
+		addEmptyLine(title, 2);
 		subCatPart.add(title);
 
 		for (int i = 0; i < 10; i++) {
@@ -193,6 +233,30 @@ public class PdfMaker {
 			return;
 		}
 	}
+	
+	private static void addWCompleteSign(Section document) throws DocumentException {
+
+		try {
+			// get input stream
+			Bitmap bmp = StoreData.workCompleteSignBitmap;
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+			Image image;
+			try {
+				image = Image.getInstance(stream.toByteArray());
+				image.scaleAbsolute(200f, 200f);
+				image.setAlignment(Element.ALIGN_CENTER);
+				document.add(image);
+			} catch (BadElementException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		} catch (IOException ex) {
+			return;
+		}
+	}
+	
 	
 	private static Image getImageInstanceFromBitmap(Bitmap bitmap) throws BadElementException{
 		

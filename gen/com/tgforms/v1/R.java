@@ -253,6 +253,8 @@ public final class R {
         public static final int lotoStep7=0x7f09001d;
         public static final int lotoStep8=0x7f09001e;
         public static final int lotoStep9=0x7f09001f;
+        public static final int menubtnrcv=0x7f090058;
+        public static final int menubtnsave=0x7f090057;
         public static final int menubtnsend=0x7f090056;
         public static final int mysignature=0x7f090002;
         public static final int pager=0x7f090004;

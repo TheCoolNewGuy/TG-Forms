@@ -1,12 +1,12 @@
 package com.tgforms.v1;
 
-import com.tgforms.v1.R;
-import com.tgforms.v1.adapters.FormListAdapter;
-import com.tgforms.v1.form1.MainActivity;
-import com.tgforms.v1.utils.PdfMaker;
-
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.wifi.p2p.WifiP2pManager;
+import android.net.wifi.p2p.WifiP2pManager.Channel;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,17 +15,22 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.tgforms.v1.adapters.FormListAdapter;
+import com.tgforms.v1.connectivity.P2Prevceiver;
+import com.tgforms.v1.form1.MainActivity;
+
 public class HomeActivity extends Activity {
 
 	ListView listview;
 	FormListAdapter adapter;
+	
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		
-	
 		listview = (ListView) findViewById(R.id.formList);
         adapter = new FormListAdapter(this);
         listview.setAdapter(adapter);
@@ -67,4 +72,6 @@ public class HomeActivity extends Activity {
 		Intent intent = new Intent(this, MainActivity.class);
 	    startActivity(intent);
 	}
+	
+	
 }

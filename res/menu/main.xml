@@ -7,6 +7,14 @@
         android:title="@string/action_settings"/>
 	<item 
         android:id="@+id/menubtnsend"
-        android:showAsAction="always"
+        android:showAsAction="collapseActionView"
         android:title="@string/send"/>
+	<item 
+        android:id="@+id/menubtnsave"
+        android:showAsAction="always"
+        android:title="save"/>
+	<item 
+        android:id="@+id/menubtnrcv"
+        android:showAsAction="collapseActionView"
+        android:title="receive"/>
 </menu>
