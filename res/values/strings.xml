@@ -24,5 +24,6 @@
     <string name="title_activity_capture_signature">Signature</string>
     <string name="title_activity_send">SendActivity</string>
     <string name="title_activity_home">TG Forms</string>
+    <string name="title_activity_prompt_ip">Pair Device</string>
 
 </resources>

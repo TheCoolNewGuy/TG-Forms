@@ -381,6 +381,7 @@ public class FragmentTwo extends android.support.v4.app.Fragment {
     			value.setBitmapSignCleartoClose(bitmap);
     			value.setBase64SignCleartoClose(Utilities.encodeTobase64(bitmap));
     	    	value.setDateClose(Utilities.getDate());
+    	    	System.out.println(Utilities.encodeTobase64(bitmap));
     	    }else if(Integer.parseInt(tag)==Integer.parseInt(value.getSignCleartoOpen().getTag().toString())){
     	    	value.setBitmapSignCleartoOpen(bitmap);
     			value.setBase64SignCleartoOpen(Utilities.encodeTobase64(bitmap));

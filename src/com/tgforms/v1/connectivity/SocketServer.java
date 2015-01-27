@@ -9,6 +9,9 @@ import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import com.tgforms.v1.form1.StoreData;
+import com.tgforms.v1.pojo.TransferableObject;
+
 import android.os.AsyncTask;
 
 public class SocketServer {
@@ -31,15 +34,15 @@ public class SocketServer {
     }
     
     
-    class serverAsyncTask extends AsyncTask<String, Void, Void>{
+    class serverAsyncTask extends AsyncTask<String, Void, TransferableObject>{
 
 		@Override
-		protected Void doInBackground(String... arg0) {
+		protected TransferableObject doInBackground(String... arg0) {
 			// TODO Auto-generated method stub
-			System.out.println("Server started. Listening to the port 4444");
+			
 			try {
-				serverSocket = new ServerSocket(4445); // Server socket
-				System.out.println("Server started. Listening to the port 4445");
+				serverSocket = new ServerSocket(4444); // Server socket
+				
 				
 			} catch (IOException e) {
 				System.out.println("Could not listen on port: 4444");
@@ -49,13 +52,15 @@ public class SocketServer {
 	 
 			while (true) {
 				try {
-	 
+					System.out.println( StoreData.editLocation);
+					System.out.println( StoreData.editPermitManager);
+					
 					clientSocket = serverSocket.accept(); // accept the client connection
 					ObjectInputStream in  = new ObjectInputStream(clientSocket.getInputStream());
                                         com.tgforms.v1.pojo.TransferableObject messageObject = (com.tgforms.v1.pojo.TransferableObject) in.readObject();
-                                        String messageText = messageObject.getLocation();
-                                        System.out.println(messageText);
+                                        
 					clientSocket.close();
+					return messageObject;
 	 
 				} catch (IOException ex) {
 					System.out.println("Problem in message reading");
@@ -65,7 +70,21 @@ public class SocketServer {
 				}
 			}
 		}
+		
+		@Override
+		protected void onPostExecute(TransferableObject result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			updateView(result);
+		}
     	
+    }
+    private void updateView(TransferableObject messageObject ){
+    	String messageText = messageObject.getLocation();
+        System.out.println(messageText);
+        
+        StoreData.editLocation.setText(messageText);
+        StoreData.editPermitManager.setText(messageObject.getPermit_manager());
     }
         
 }

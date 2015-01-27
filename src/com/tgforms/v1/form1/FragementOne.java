@@ -26,8 +26,8 @@ public class FragementOne extends android.support.v4.app.Fragment {
     
     
     View rootView;
-    EditText editDate,editLocation,editPermitManager,editEquipment;
-    ArrayList<EditText> lotoSteps;
+    
+    
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,24 +38,24 @@ public class FragementOne extends android.support.v4.app.Fragment {
         ImageView headerView = (ImageView) rootView.findViewById(R.id.imageView1);
         StoreData.headerBitmap = ((BitmapDrawable) headerView.getDrawable()).getBitmap();
         
-        lotoSteps = new ArrayList<EditText>();
         
-        editDate = (EditText) rootView.findViewById(R.id.editformdate);
-        editDate.setInputType(InputType.TYPE_NULL);
-        editLocation = (EditText) rootView.findViewById(R.id.editLocation);
-        editPermitManager = (EditText) rootView.findViewById(R.id.editPermitManager);
-        editEquipment = (EditText) rootView.findViewById(R.id.editEquipment);
         
-        lotoSteps.add((EditText) rootView.findViewById(R.id.lotoStep1));
-        lotoSteps.add((EditText) rootView.findViewById(R.id.lotoStep2));
-        lotoSteps.add((EditText) rootView.findViewById(R.id.lotoStep3));
-        lotoSteps.add((EditText) rootView.findViewById(R.id.lotoStep4));
-        lotoSteps.add((EditText) rootView.findViewById(R.id.lotoStep5));
-        lotoSteps.add((EditText) rootView.findViewById(R.id.lotoStep6));
-        lotoSteps.add((EditText) rootView.findViewById(R.id.lotoStep7));
-        lotoSteps.add((EditText) rootView.findViewById(R.id.lotoStep8));
-        lotoSteps.add((EditText) rootView.findViewById(R.id.lotoStep9));
-        lotoSteps.add((EditText) rootView.findViewById(R.id.lotoStep10));
+        StoreData.editDate = (EditText) rootView.findViewById(R.id.editformdate);
+        StoreData.editDate.setInputType(InputType.TYPE_NULL);
+        StoreData.editLocation = (EditText) rootView.findViewById(R.id.editLocation);
+        StoreData.editPermitManager = (EditText) rootView.findViewById(R.id.editPermitManager);
+        StoreData.editEquipment = (EditText) rootView.findViewById(R.id.editEquipment);
+        
+        StoreData.lotoStepsEditText.add((EditText) rootView.findViewById(R.id.lotoStep1));
+        StoreData.lotoStepsEditText.add((EditText) rootView.findViewById(R.id.lotoStep2));
+        StoreData.lotoStepsEditText.add((EditText) rootView.findViewById(R.id.lotoStep3));
+        StoreData.lotoStepsEditText.add((EditText) rootView.findViewById(R.id.lotoStep4));
+        StoreData.lotoStepsEditText.add((EditText) rootView.findViewById(R.id.lotoStep5));
+        StoreData.lotoStepsEditText.add((EditText) rootView.findViewById(R.id.lotoStep6));
+        StoreData.lotoStepsEditText.add((EditText) rootView.findViewById(R.id.lotoStep7));
+        StoreData.lotoStepsEditText.add((EditText) rootView.findViewById(R.id.lotoStep8));
+        StoreData.lotoStepsEditText.add((EditText) rootView.findViewById(R.id.lotoStep9));
+        StoreData.lotoStepsEditText.add((EditText) rootView.findViewById(R.id.lotoStep10));
         
         for(int i=0;i<10;i++){
         	StoreData.lotoSteps.add(i, String.valueOf(i+1)+". ");
@@ -77,20 +77,20 @@ public class FragementOne extends android.support.v4.app.Fragment {
         month = c.get(Calendar.MONTH);
         day   = c.get(Calendar.DAY_OF_MONTH);
         
-        editDate.setText(new StringBuilder().append(month+1).append("/").append(day).append("/").append(year).append(" "));
-        StoreData.FormDate="Date : "+editDate.getText().toString();
+        StoreData.editDate.setText(new StringBuilder().append(month+1).append("/").append(day).append("/").append(year).append(" "));
+        StoreData.FormDate="Date : "+StoreData.editDate.getText().toString();
         
     }
     
      private void addWatchers()
      {
     	 
-    	 editLocation.addTextChangedListener(new TextWatcher() {
+    	 StoreData.editLocation.addTextChangedListener(new TextWatcher() {
     		 
   			@Override
   			public void afterTextChanged(Editable s) {
   				// TODO Auto-generated method stub
-  				StoreData.Location="Location : "+editLocation.getText().toString();
+  				StoreData.Location="Location : "+StoreData.editLocation.getText().toString();
   			}
 
  			@Override
@@ -108,12 +108,12 @@ public class FragementOne extends android.support.v4.app.Fragment {
  			}
   		});
     	 
-    	 editEquipment.addTextChangedListener(new TextWatcher() {
+    	 StoreData.editEquipment.addTextChangedListener(new TextWatcher() {
     		 
    			@Override
    			public void afterTextChanged(Editable s) {
    				// TODO Auto-generated method stub
-   				StoreData.Equipment="Equipment : "+editEquipment.getText().toString();
+   				StoreData.Equipment="Equipment : "+StoreData.editEquipment.getText().toString();
    			}
 
   			@Override
@@ -131,12 +131,12 @@ public class FragementOne extends android.support.v4.app.Fragment {
   			}
    		});
     	 
-    	 editPermitManager.addTextChangedListener(new TextWatcher() {
+    	 StoreData.editPermitManager.addTextChangedListener(new TextWatcher() {
     		 
    			@Override
    			public void afterTextChanged(Editable s) {
    				// TODO Auto-generated method stub
-   				StoreData.Permit_manager="Permit Manager : "+editPermitManager.getText().toString();
+   				StoreData.Permit_manager="Permit Manager : "+StoreData.editPermitManager.getText().toString();
    			}
 
   			@Override
@@ -155,9 +155,9 @@ public class FragementOne extends android.support.v4.app.Fragment {
    		});
     	 
     	 
-    	 for(int i=0;i<lotoSteps.size();i++)
+    	 for(int i=0;i<StoreData.lotoStepsEditText.size();i++)
     	 {
-    		 addTextChangedListener(lotoSteps.get(i), i);
+    		 addTextChangedListener(StoreData.lotoStepsEditText.get(i), i);
     	 }
     }
      
@@ -186,5 +186,7 @@ public class FragementOne extends android.support.v4.app.Fragment {
 			}
 		});
     }
+    
+    
     
 }

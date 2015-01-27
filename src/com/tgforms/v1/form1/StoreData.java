@@ -7,6 +7,7 @@ import java.util.HashMap;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.webkit.WebView.FindListener;
+import android.widget.EditText;
 
 import com.tgforms.v1.pojo.ClearanceData;
 
@@ -20,12 +21,14 @@ public class StoreData implements Serializable{
 	public static String workComplete="Work Complete(Print) : ";
 	
 	public static ArrayList<String> lotoSteps = new ArrayList<String>();
+	public static ArrayList<EditText> lotoStepsEditText  = new ArrayList<EditText>();;
 	public static HashMap<String, ClearanceData> clearanceDataList;
 	
 	public static Bitmap workCompleteSignBitmap;
 	public static Bitmap headerBitmap;
 	public static boolean workCompleteSignDone=false;
 	
+	public static EditText editDate,editLocation,editPermitManager,editEquipment;
 	public static StringBuilder getData(){
 		
 		StringBuilder pdfBody = new StringBuilder();
