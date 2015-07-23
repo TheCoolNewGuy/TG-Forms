@@ -1,97 +1,58 @@
 package com.tgforms.v1.form1;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.HashMap;
 import java.util.List;
 
-import android.content.BroadcastReceiver;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.net.DhcpInfo;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
-import android.net.wifi.p2p.WifiP2pDeviceList;
-import android.net.wifi.p2p.WifiP2pManager;
-import android.net.wifi.p2p.WifiP2pManager.Channel;
-import android.net.wifi.p2p.WifiP2pManager.PeerListListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
-import com.itextpdf.text.Image;
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
-import com.itextpdf.xmp.impl.Utils;
 import com.tgforms.v1.PromptIp;
 import com.tgforms.v1.R;
-import com.tgforms.v1.viewPagerAdapter;
-import com.tgforms.v1.connectivity.P2Prevceiver;
-
-import com.tgforms.v1.connectivity.SocketServer;
-import com.tgforms.v1.pojo.ClearanceData;
-import com.tgforms.v1.pojo.TransferableClearanceData;
-import com.tgforms.v1.pojo.TransferableObject;
-import com.tgforms.v1.utils.PdfMaker;
+import com.tgforms.v1.form1.FragmentTwo.ActivityConnector;
 import com.tgforms.v1.utils.Utilities;
+import com.tgforms.v1.utils.Utilities.MyCallback;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements ActivityConnector {
 
 	ViewPager viewPager;
-	com.tgforms.v1.form1.StoreData storedata = new StoreData();
 
-	WifiP2pManager mManager;
-	Channel mChannel;
-	BroadcastReceiver mReceiver;
-
-	IntentFilter intentFilter;
-
-	SocketServer server;
 	private Socket client;
-	private PrintWriter printwriter;
+	private static ServerSocket serverSocket;
+	private static Socket clientSocket;
+	serverAsyncTask serverAsyncTask;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		server = new SocketServer(9990);
-
-		// mManager = (WifiP2pManager)
-		// getSystemService(Context.WIFI_P2P_SERVICE);
-		// mChannel = mManager.initialize(this, getMainLooper(), null);
-		// mReceiver = new P2Prevceiver(mManager, mChannel, this);
-		//
-		// intentFilter = new IntentFilter();
-		// intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
-		// intentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION);
-		// intentFilter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
-		// intentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
-
 		viewPager = (ViewPager) findViewById(R.id.pager);
 		viewPagerAdapter adapter = new viewPagerAdapter(
 				getSupportFragmentManager());
 		viewPager.setAdapter(adapter);
 
-		WifiManager wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
-		// WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-		// int ipAddress = wifiInfo.getIpAddress();
-
-	}
-
-	public com.tgforms.v1.form1.StoreData getStoreDataObject() {
-
-		return storedata;
 	}
 
 	@Override
@@ -106,63 +67,60 @@ public class MainActivity extends FragmentActivity {
 		switch (item.getItemId()) {
 
 		case R.id.menubtnsend:
-			// discoverPeers();
+			System.out.println("send");	
 			SendMessage sendMessageTask = new SendMessage();
-			sendMessageTask.execute();
-
+			Object Void = null;
+			sendMessageTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,(java.lang.Void[]) Void);
 			return true;
+
 		case R.id.menubtnsave:
-			if (Utilities.isFormOneComplete() && storedata.workCompleteSignDone)
-				new PdfMaker(getApplicationContext());
-			else
-				Utilities.showToast(getApplicationContext(),
-						"Please complete all required fields");
+
+			validateAndSave();
 			return true;
 
 		case R.id.menubtnrcv:
-			initiateServer();
+
+			try {
+				initiateServer();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return true;
+
 		case R.id.action_settings:
+
 			Intent intent = new Intent(getApplicationContext(), PromptIp.class);
 			startActivity(intent);
 			return true;
+
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
 
-	private void discoverPeers() {
+	@Override
+	protected void onDestroy() {
 		// TODO Auto-generated method stub
-		mManager.discoverPeers(mChannel, new WifiP2pManager.ActionListener() {
-
-			@Override
-			public void onSuccess() {
-				System.out.println("Peer found");
-
-			}
-
-			@Override
-			public void onFailure(int reasonCode) {
-				System.out.println(reasonCode);
-				System.out.println("Peer not found");
-			}
-		});
+		super.onDestroy();
+		Utilities.dismissLoadingDialog();
+		
 	}
 
-	public void initiateServer() {
-		try {
-			server.start();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	private void initiateServer() throws IOException {
+		
+		Object Void = null;
+		serverAsyncTask = new serverAsyncTask();
+		serverAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (String[]) Void);
+
+		
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		// super.onActivityResult(requestCode, resultCode, data);
-		System.out.println("result");
+		
 		List<Fragment> fragments = getSupportFragmentManager().getFragments();
 
 		for (Fragment each : fragments) {
@@ -175,16 +133,14 @@ public class MainActivity extends FragmentActivity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		System.out.println("resumed");
-		// registerReceiver(mReceiver, intentFilter);
+		
 	}
 
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-		System.out.println("paused");
-		// unregisterReceiver(mReceiver);
+		
 	}
 
 	private class SendMessage extends AsyncTask<Void, Void, Void> {
@@ -194,51 +150,45 @@ public class MainActivity extends FragmentActivity {
 			try {
 
 				String Ip = getIP();
-				System.out.println(Ip);
+				System.out.println("send to "+Ip);
 				if (Ip.length() > 0) {
-					TransferableObject data = getTransferableData();
-					System.out.println(data.getLocation());
-					System.out.println(data.getPermit_manager());
-					client = new Socket(Ip, 4444); // connect to the server
+					showToastFromBackground("Sending to "+Ip);
+					FormData data = getData();
+					client = new Socket(Ip, 9999); // connect to the server
 					ObjectOutputStream out = new ObjectOutputStream(
 							client.getOutputStream());
 					out.writeObject(data);
 					client.close();
+					Handler handler = new Handler(Looper.getMainLooper());
+
+					handler.post(new Runnable() {
+
+						@Override
+						public void run() {
+							// Your UI code here
+							Utilities.showToast(getApplicationContext(),
+									"Data sent");
+						}
+					});
+					return null;
+
 				} else {
-					Utilities.showToast(getApplicationContext(), "Invalid IP");
+					showToastFromBackground("Invalid IP,Please update.");
+					this.cancel(true);	
 				}
 
 			} catch (UnknownHostException e) {
+				showToastFromBackground("No device listening at specified IP ");
 				e.printStackTrace();
+				this.cancel(true);	
 			} catch (IOException e) {
+				showToastFromBackground("IO exception.");
 				e.printStackTrace();
+				this.cancel(true);	
 			}
 			return null;
 		}
 
-	}
-
-	private TransferableObject getTransferableData() {
-
-		HashMap<String, TransferableClearanceData> TAclearanceDataList = new HashMap<String, TransferableClearanceData>();
-		;
-
-		for (int i = 0; i < 10; i++) {
-			ClearanceData data = StoreData.clearanceDataList.get(String
-					.valueOf(i + 1));
-			TAclearanceDataList.put(
-					String.valueOf(i) + 1,
-					new TransferableClearanceData(data.getName(), data
-							.getBase64SignCleartoOpen(), data.getDateOpen(),
-							data.getBase64SignCleartoClose(), data
-									.getDateClose(),
-							data.getName().length() > 0));
-		}
-
-		return new TransferableObject(storedata.FormDate, storedata.Location,
-				storedata.Permit_manager, storedata.Equipment,
-				storedata.workComplete, storedata.lotoSteps,
-				TAclearanceDataList, "");
 	}
 
 	private String getIP() {
@@ -247,6 +197,263 @@ public class MainActivity extends FragmentActivity {
 		String ipAdrs = preferences.getString("Ip", "");
 
 		return ipAdrs;
+	}
+
+	private void showToastFromBackground(final String message) {
+		Handler handler = new Handler(Looper.getMainLooper());
+
+		handler.post(new Runnable() {
+
+			@Override
+			public void run() {
+				// Your UI code here
+				Utilities.showToast(getApplicationContext(), message);
+			}
+		});
+	}
+
+	private void showInputDialgoe(final FragmentOneData f1Data,
+			final FragmentTwoData f2Data) {
+
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+		alert.setTitle("Enter file name :");
+
+		// Set an EditText view to get user input
+		final EditText input = new EditText(this);
+		alert.setView(input);
+
+		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				Editable value = input.getText();
+				new PdfMaker(getApplicationContext(), value.toString(), f1Data,
+						f2Data);
+				finish();
+			}
+		});
+
+		alert.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						// Canceled.
+					}
+				});
+
+		alert.show();
+	}
+
+	private FormData getData() {
+
+		FragementOne f1 = null;
+		FragmentTwo f2 = null;
+
+		FragmentOneData f1Data = null;
+		FragmentTwoData f2Data = null;
+
+		List<Fragment> fragments = getSupportFragmentManager().getFragments();
+
+		for (Fragment each : fragments) {
+			String tag = each.getArguments().getString("TAG");
+
+			if (tag == "1") {
+				f1 = (FragementOne) each;
+				f1Data = f1.getData();
+			} else if (tag == "2") {
+				f2 = (FragmentTwo) each;
+				f2Data = f2.getData();
+			}
+		}
+
+		return new FormData(f1Data, f2Data);
+	}
+
+	private void validateAndSave() {
+
+		FragementOne f1 = null;
+		FragmentTwo f2 = null;
+
+		FragmentOneData f1Data = null;
+		FragmentTwoData f2Data = null;
+
+		List<Fragment> fragments = getSupportFragmentManager().getFragments();
+
+		for (Fragment each : fragments) {
+			String tag = each.getArguments().getString("TAG");
+
+			if (tag == "1") {
+				f1 = (FragementOne) each;
+				f1Data = f1.getData();
+			} else if (tag == "2") {
+				f2 = (FragmentTwo) each;
+				f2Data = f2.getData();
+			}
+		}
+
+		System.out.println(f1.isComplete());
+		System.out.println(f2.isComplete());
+
+		if (f1.isComplete() && f2.isComplete())
+			showInputDialgoe(f1Data, f2Data);
+		else
+			Utilities.showToast(getApplicationContext(),
+					"Please complete all required fields");
+
+	}
+
+	private Context getProgressBarContext() {
+		Context con;
+
+		if (getParent() != null)
+			con = getParent();
+		else
+			con = this;
+
+		return con;
+	}
+
+	@Override
+	public boolean isPageOneComplete() {
+		// TODO Auto-generated method stub
+
+		List<Fragment> fragments = getSupportFragmentManager().getFragments();
+
+		for (Fragment each : fragments) {
+			String tag = each.getArguments().getString("TAG");
+
+			if (tag == "1") {
+
+				FragementOne f1 = (FragementOne) each;
+				return f1.isComplete();
+			}
+		}
+		return false;
+	}
+
+	class serverAsyncTask extends AsyncTask<String, Void, FormData> implements MyCallback {
+
+		private volatile boolean keepListening = true;
+		private ProgressDialog pdia;
+		serverAsyncTask task = this; 
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+			pdia = new ProgressDialog(getProgressBarContext());
+			pdia.setTitle("Please wait");
+			pdia.setMessage("Waiting.....");
+			pdia.setCancelable(true);
+			pdia.setOnCancelListener(new OnCancelListener() {
+				
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					// TODO Auto-generated method stub
+					keepListening=false;
+					System.out.println("canceling as task");
+					task.cancel(true);
+					if(clientSocket!=null)
+						try {
+							clientSocket.close();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					if(serverSocket!=null)
+						try {
+							serverSocket.close();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+				}
+			});
+			if (!isFinishing())
+				pdia.show();  
+		}
+
+		@Override
+		protected FormData doInBackground(String... arg0) {
+			// TODO Auto-generated method stub
+			System.out.println("New asyncatask");
+			try {
+				serverSocket = new ServerSocket(9999); // Server socket
+				
+
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+				showToastFromBackground("Could not listen on port: 9999.");
+				System.out.println("Could not listen on port: 9999");
+			}
+
+			while (keepListening) {
+					
+				try {
+					System.out.println(keepListening);	
+					clientSocket = serverSocket.accept(); // accept the client
+															// connection
+					ObjectInputStream in = new ObjectInputStream(
+							clientSocket.getInputStream());
+					FormData messageObject = (FormData) in.readObject();
+					clientSocket.close();
+					serverSocket.close();
+					return messageObject;
+
+				} catch (IOException ex) {
+					Utilities.dismissLoadingDialog();
+					System.out.println("Problem in message reading");
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					showToastFromBackground("ClassNotFoundException.");
+					Utilities.dismissLoadingDialog();
+					e.printStackTrace();
+				}
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(FormData result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			pdia.dismiss();
+			
+			if(result!=null){
+			
+				FragementOne f1 = null;
+				FragmentTwo f2 = null;
+
+				List<Fragment> fragments = getSupportFragmentManager()
+						.getFragments();
+
+				for (Fragment each : fragments) {
+					String tag = each.getArguments().getString("TAG");
+
+					if (tag == "1") {
+						f1 = (FragementOne) each;
+						f1.updateView(result.getFragmentOneData());
+					} else if (tag == "2") {
+						f2 = (FragmentTwo) each;
+						f2.updateView(result.getFragmentTwoData());
+					}
+				}
+
+			}
+			
+		}
+
+		@Override
+		public void onProgressBarCancel() {
+			// TODO Auto-generated method stub
+			keepListening=false;
+		}
+
+	}
+
+	private void cancelAsyncTask(){
+		if(serverAsyncTask!=null){
+			System.out.println("canceling asynctask");
+			serverAsyncTask.cancel(true);
+			serverAsyncTask=null;
+		} 
 	}
 
 }

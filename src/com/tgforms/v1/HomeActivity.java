@@ -15,8 +15,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import com.tgforms.v1.adapters.FormListAdapter;
-import com.tgforms.v1.connectivity.P2Prevceiver;
 import com.tgforms.v1.form1.MainActivity;
 
 public class HomeActivity extends Activity {

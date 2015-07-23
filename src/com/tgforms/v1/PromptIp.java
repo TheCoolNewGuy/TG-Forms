@@ -71,6 +71,8 @@ public class PromptIp extends Activity implements OnClickListener{
 			  SharedPreferences.Editor editor = preferences.edit();
 			  editor.putString("Ip",ipaddrs);
 			  editor.apply();
+			  Utilities.showToast(getApplicationContext(), "IP saved");
+			  finish();
 		}else{
 			Utilities.showToast(getApplicationContext(), "Invalid IP");
 		}

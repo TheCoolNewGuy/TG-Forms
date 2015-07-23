@@ -18,9 +18,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+
 import com.tgforms.v1.R;
-import com.tgforms.v1.R.id;
-import com.tgforms.v1.R.layout;
  
 public class CaptureSignature extends Activity {
  

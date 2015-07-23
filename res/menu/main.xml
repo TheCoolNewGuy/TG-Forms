@@ -12,9 +12,9 @@
 	<item 
         android:id="@+id/menubtnsave"
         android:showAsAction="always"
-        android:title="save"/>
+        android:title="Save"/>
 	<item 
         android:id="@+id/menubtnrcv"
         android:showAsAction="collapseActionView"
-        android:title="receive"/>
+        android:title="Receive"/>
 </menu>

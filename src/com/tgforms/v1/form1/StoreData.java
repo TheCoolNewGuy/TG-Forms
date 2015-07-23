@@ -5,30 +5,80 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.webkit.WebView.FindListener;
 import android.widget.EditText;
+import android.widget.ImageView;
 
-import com.tgforms.v1.pojo.ClearanceData;
 
 @SuppressWarnings("serial")
 public class StoreData implements Serializable{
 	
-	public static String FormDate="Date : ";
-	public static String Location ="Location : ";
-	public static String Permit_manager="Permit Manager : ";
-	public static String Equipment ="Equipment : ";
-	public static String workComplete="Work Complete(Print) : ";
+	public static String FormDate;
+	public static String Location;
+	public static String Permit_manager;
+	public static String Equipment; 
+	public static String workComplete;
 	
-	public static ArrayList<String> lotoSteps = new ArrayList<String>();
-	public static ArrayList<EditText> lotoStepsEditText  = new ArrayList<EditText>();;
+	public static ArrayList<String> lotoSteps;
+	public static ArrayList<EditText> lotoStepsEditText;
+	
 	public static HashMap<String, ClearanceData> clearanceDataList;
+	public static HashMap<String, ImageView> signList;
 	
 	public static Bitmap workCompleteSignBitmap;
 	public static Bitmap headerBitmap;
 	public static boolean workCompleteSignDone=false;
 	
-	public static EditText editDate,editLocation,editPermitManager,editEquipment;
+	public static EditText editDate,editLocation,editPermitManager,editEquipment, editWorkComplete;
+	public static ArrayList<EditText> nameList,openDate,closeDate;
+	public static HashMap<String, EditText > dateList;
+	
+	public static void initiateData()
+	{
+		System.out.println("initiating");
+		
+		FormDate="Date : ";
+		Location ="Location : ";
+		Permit_manager="Permit Manager : ";
+		Equipment ="Equipment : ";
+		workComplete="Work Complete(Print) : ";
+		
+		lotoSteps = new ArrayList<String>();
+		lotoStepsEditText  = new ArrayList<EditText>();;
+		
+		
+	}
+	
+	public static void ClearData(){
+		
+		System.out.println("clearing");
+		
+		FormDate=null;
+		Location =null;
+		Permit_manager=null;
+		Equipment =null;
+		workComplete=null;
+		
+		lotoSteps = null;
+		lotoStepsEditText  = null;
+		
+		clearanceDataList= null;
+		signList= null;
+		
+		workCompleteSignBitmap= null;
+		headerBitmap= null;
+		workCompleteSignDone= false;
+		
+		editDate= null;
+		editLocation= null;
+		editPermitManager= null;
+		editEquipment= null;
+		editWorkComplete= null;
+		nameList= null;
+		openDate= null;
+		closeDate= null;
+		dateList= null;
+	}
+	
 	public static StringBuilder getData(){
 		
 		StringBuilder pdfBody = new StringBuilder();
