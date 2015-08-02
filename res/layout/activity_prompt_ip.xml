@@ -8,25 +8,25 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.tgforms.v1.PromptIp" >
 
-     <TextView
-        android:layout_alignParentTop="true"
+    <TextView
         android:id="@+id/promptYourIp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:text="Your IP :" />
-     
-     <TextView
+
+    <TextView
         android:id="@+id/showIpSelf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/promptYourIp"
         android:text="" />
-     
+
     <TextView
         android:id="@+id/promptIp"
-        android:layout_below="@id/showIpSelf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/showIpSelf"
         android:text="Enter Ip of other device :" />
 
     <EditText
@@ -34,12 +34,12 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/promptIp" />
-    
-        <Button
+
+    <Button
         android:id="@+id/saveIp"
-        android:text="Save IP"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editIp" />
+        android:layout_below="@id/editIp"
+        android:text="Save IP" />
 
 </RelativeLayout>

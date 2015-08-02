@@ -76,8 +76,7 @@ public class PromptIp extends Activity implements OnClickListener{
 		}else{
 			Utilities.showToast(getApplicationContext(), "Invalid IP");
 		}
-		  
-	
+		 
 	}
 
 	@Override

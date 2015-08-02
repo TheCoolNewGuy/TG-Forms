@@ -1,0 +1,84 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.tgforms.v1.FtpClient" >
+
+    <TextView
+        android:id="@+id/promptFtpIp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="Enter FTP Server IP:" />
+
+    <EditText
+        android:id="@+id/editFtpIp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/promptFtpIp" />
+
+    <TextView
+        android:id="@+id/promptFtpPort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editFtpIp"
+        android:text="Enter FTP Server Port:" />
+
+    <EditText
+        android:id="@+id/editFtpPort"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/promptFtpPort" />
+    
+    <TextView
+        android:id="@+id/promptFtpUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editFtpPort"
+        android:text="USER:" />
+
+    <EditText
+        android:id="@+id/editFtpUser"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/promptFtpUser" />
+
+    <TextView
+        android:id="@+id/promptFtpPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editFtpUser"
+        android:text="PASSWORD:" />
+
+    <EditText
+        android:id="@+id/editFtpPass"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/promptFtpPass" />
+    
+    <Button
+        android:id="@+id/saveFtpDetails"
+        android:text="Save"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editFtpPass"/>
+    
+    <Button
+        android:id="@+id/downloadFiles"
+        android:text="Download"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+    
+    <Button
+        android:id="@+id/uploadFiles"
+        android:text="Upload"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/downloadFiles" />
+    
+ </RelativeLayout>

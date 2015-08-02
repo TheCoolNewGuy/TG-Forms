@@ -16,6 +16,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.tgforms.v1.form1.MainActivity;
+import com.tgforms.v1.ftpclient.FtpClient;
 
 public class HomeActivity extends Activity {
 
@@ -61,6 +62,10 @@ public class HomeActivity extends Activity {
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			Intent intent = new Intent(getApplicationContext(), PromptIp.class);
+			startActivity(intent);
+			return true;
+		} else if(id == R.id.menubtnftp){
+			Intent intent = new Intent(getApplicationContext(),FtpClient.class);
 			startActivity(intent);
 			return true;
 		}

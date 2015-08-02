@@ -24,6 +24,7 @@ import com.itextpdf.text.Section;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.tgforms.v1.utils.Constants;
 import com.tgforms.v1.utils.Utilities;
 
 public class PdfMaker {
@@ -48,16 +49,23 @@ public class PdfMaker {
 		
 		String root = Environment.getExternalStorageDirectory().toString();
 		File myDir = new File(root + "/TG Forms");
-		FILE = root + "/TG Forms/"+fileName+".pdf";
 		myDir.mkdir();
-
+		File mySubDir = new File(myDir,"LOTO Form");
+		mySubDir.mkdir();
+		File myAnotherSubDir = new File(mySubDir,"Saved");
+		myAnotherSubDir.mkdir();
+		
+		FILE = root + Constants.rootPath+"/LOTO Form/Saved/"+fileName+".pdf";
+		System.out.println(FILE);
+		
 		try {
 			Document document = new Document();
 			PdfWriter.getInstance(document, new FileOutputStream(FILE));
 			document.open();
 			addContent(document);
 			document.close();
-			Utilities.showToast(con, "Form data saved at SD CARD/TG FORMS/"+fileName);
+			Utilities.showToast(con, "Form data saved at SD CARD"+Constants.loto_path_saved+" "+fileName);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

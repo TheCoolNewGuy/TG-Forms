@@ -25,5 +25,6 @@
     <string name="title_activity_send">SendActivity</string>
     <string name="title_activity_home">MTRS Forms</string>
     <string name="title_activity_prompt_ip">Pair Device</string>
+    <string name="title_activity_ftp_client">Ftp Client</string>
 
 </resources>
