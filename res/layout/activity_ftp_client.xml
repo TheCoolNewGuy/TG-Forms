@@ -33,7 +33,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/promptFtpPort" />
-    
+
     <TextView
         android:id="@+id/promptFtpUser"
         android:layout_width="wrap_content"
@@ -59,26 +59,41 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/promptFtpPass" />
-    
+
+    <TextView
+        android:id="@+id/promptSetSchedule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editFtpPass"
+        android:text="Set synching schedule : " />
+
+    <Button
+        android:id="@+id/editSchedule"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="click to set time"
+        android:layout_below="@id/promptSetSchedule" />
+
     <Button
         android:id="@+id/saveFtpDetails"
-        android:text="Save"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editFtpPass"/>
-    
+        android:layout_below="@id/editSchedule"
+        android:text="Save" />
+
     <Button
         android:id="@+id/downloadFiles"
-        android:text="Download"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
-    
+        android:layout_alignParentBottom="true"
+        android:text="Download" />
+
     <Button
         android:id="@+id/uploadFiles"
-        android:text="Upload"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/downloadFiles" />
-    
- </RelativeLayout>
+        android:layout_above="@id/downloadFiles"
+        android:text="Upload" />
+
+</RelativeLayout>

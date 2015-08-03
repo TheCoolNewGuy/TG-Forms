@@ -18,7 +18,7 @@ import com.tgforms.v1.utils.Utilities;
 
 public class FtpClient extends Activity implements OnClickListener {
 
-	Button upload, download, save;
+	Button upload, download, save, schedule;
 	EditText ftpIp, ftpUser, ftpPassword,ftpPort;
 	Context con=null;
 
@@ -31,7 +31,8 @@ public class FtpClient extends Activity implements OnClickListener {
 		upload = (Button) findViewById(R.id.uploadFiles);
 		download = (Button) findViewById(R.id.downloadFiles);
 		save = (Button) findViewById(R.id.saveFtpDetails);
-
+		schedule = (Button) findViewById(R.id.editSchedule);
+		
 		ftpIp = (EditText) findViewById(R.id.editFtpIp);
 		ftpPort = (EditText) findViewById(R.id.editFtpPort);
 		ftpUser = (EditText) findViewById(R.id.editFtpUser);
@@ -45,6 +46,7 @@ public class FtpClient extends Activity implements OnClickListener {
 		upload.setOnClickListener(this);
 		download.setOnClickListener(this);
 		save.setOnClickListener(this);
+		schedule.setOnClickListener(this);
 		
 		
 	}
@@ -83,6 +85,10 @@ public class FtpClient extends Activity implements OnClickListener {
 
 		case R.id.saveFtpDetails:
 			saveFtpDetails();
+			break;
+			
+		case R.id.editSchedule:
+			System.out.println("edit clicked");
 			break;
 		}
 	}
