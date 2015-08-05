@@ -17,5 +17,6 @@ public class Constants {
 	public static String KEY_FTP_PORT = "ftpport";
 	public static String KEY_FTP_USER = "ftpuser";
 	public static String KEY_FTP_PASS = "ftpassword";
+	public static String KEY_FTP_SCHEDULE = "ftpschedule";
 	
 }

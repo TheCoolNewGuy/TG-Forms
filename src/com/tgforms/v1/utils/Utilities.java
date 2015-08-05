@@ -178,7 +178,7 @@ public class Utilities {
 	public static String getFtpPort(Context con) {
 		SharedPreferences preferences = PreferenceManager
 				.getDefaultSharedPreferences(con);
-		String port = preferences.getString(Constants.KEY_FTP_PORT, "");
+		String port = preferences.getString(Constants.KEY_FTP_PORT, "0");
 
 		return port;
 	}

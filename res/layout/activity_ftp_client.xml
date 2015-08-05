@@ -72,7 +72,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:text="click to set time"
         android:layout_below="@id/promptSetSchedule" />
 
     <Button

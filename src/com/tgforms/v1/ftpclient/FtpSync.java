@@ -14,6 +14,8 @@ import org.apache.commons.net.ftp.FTPClient;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import com.tgforms.v1.utils.Constants;
@@ -79,6 +81,8 @@ public class FtpSync {
 	        catch (Exception e)
 	        {
 	            e.printStackTrace();
+	            showToastFromBackground(e.getMessage());
+	            
 	        }
 
 			return null;
@@ -119,11 +123,26 @@ public class FtpSync {
 		    {
 		        Log.v("download result","failed");
 		        e.printStackTrace();
+		        //showToastFromBackground(e.getMessage());
 		    }
 		    
 			return null;
 		}
 		
+	}
+	
+	public void startSyncing(Context con)
+	{
+		context = con;
+		ip = Utilities.getFtpIp(con);
+		port = Integer.parseInt(Utilities.getFtpPort(con));
+		user = Utilities.getFtpUser(con);
+		pass = Utilities.getFtpPass(con);
+		
+		Void[] Void = null;
+		new uploadFilesToFtpServer().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,(java.lang.Void[]) Void);
+		new downloadFilesFromFtpServer().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,(java.lang.Void[]) Void);
+
 	}
 	
 	public void uploadFiles(Context con)
@@ -192,10 +211,26 @@ public class FtpSync {
 
 	         catch (FileNotFoundException fnfe1) {
 	        Log.e("tag", fnfe1.getMessage());
+	        showToastFromBackground(fnfe1.getMessage());
 	    }
 	          catch (Exception e) {
 	        Log.e("tag", e.getMessage());
+	        showToastFromBackground(e.getMessage());
 	    }
 
 	}
+	
+	private void showToastFromBackground(final String message) {
+		Handler handler = new Handler(Looper.getMainLooper());
+
+		handler.post(new Runnable() {
+
+			@Override
+			public void run() {
+				// Your UI code here
+				Utilities.showToast(context, message);
+			}
+		});
+	}
+
 }
