@@ -116,7 +116,7 @@ public class FtpSync {
 		            if (result) Log.v("download result", "succeeded");
 		            con.logout();
 		            con.disconnect();
-		            //moveFile(Constants.rootPath,"configuration.json",Constants.loto_path_config_remote);
+		           
 		        }
 		    }
 		    catch (Exception e)
@@ -132,10 +132,11 @@ public class FtpSync {
 	}
 	
 	public void startSyncing(Context con)
-	{
+	{	
+		String portString = Utilities.getFtpPort(con);
 		context = con;
 		ip = Utilities.getFtpIp(con);
-		port = Integer.parseInt(Utilities.getFtpPort(con));
+		port = portString.length()>1?Integer.parseInt(portString):0;
 		user = Utilities.getFtpUser(con);
 		pass = Utilities.getFtpPass(con);
 		

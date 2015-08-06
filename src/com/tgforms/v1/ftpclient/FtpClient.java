@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TimePicker;
 
 import com.tgforms.v1.R;
@@ -28,8 +29,13 @@ import com.tgforms.v1.utils.Utilities;
 
 public class FtpClient extends Activity implements OnClickListener {
 
-	Button upload, download, save, schedule;
+	Button save, schedule;// upload, download;
 	EditText ftpIp, ftpUser, ftpPassword, ftpPort;
+	Switch scheduleSwitch;
+	Calendar scheduledCalendar;
+	String scheduledTimeasString;
+	boolean isCurrentlySet;
+
 	Context con = null;
 
 	@Override
@@ -38,10 +44,11 @@ public class FtpClient extends Activity implements OnClickListener {
 		setContentView(R.layout.activity_ftp_client);
 		con = this;
 
-		upload = (Button) findViewById(R.id.uploadFiles);
-		download = (Button) findViewById(R.id.downloadFiles);
+		// upload = (Button) findViewById(R.id.uploadFiles);
+		// download = (Button) findViewById(R.id.downloadFiles);
 		save = (Button) findViewById(R.id.saveFtpDetails);
 		schedule = (Button) findViewById(R.id.editSchedule);
+		scheduleSwitch = (Switch) findViewById(R.id.scheduleSwitch);
 
 		ftpIp = (EditText) findViewById(R.id.editFtpIp);
 		ftpPort = (EditText) findViewById(R.id.editFtpPort);
@@ -53,8 +60,11 @@ public class FtpClient extends Activity implements OnClickListener {
 		ftpUser.setText(Utilities.getFtpUser(this));
 		ftpPassword.setText(Utilities.getFtpPass(this));
 
-		upload.setOnClickListener(this);
-		download.setOnClickListener(this);
+		isCurrentlySet = Utilities.getScheduleSwitch(this);
+		scheduleSwitch.setChecked(isCurrentlySet);
+
+		// upload.setOnClickListener(this);
+		// download.setOnClickListener(this);
 		save.setOnClickListener(this);
 		schedule.setOnClickListener(this);
 		schedule.setText(getScheduleTimeString());
@@ -85,13 +95,13 @@ public class FtpClient extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		switch (view.getId()) {
 
-		case R.id.uploadFiles:
-			FtpSync.getInstance().uploadFiles(con);
-			break;
-
-		case R.id.downloadFiles:
-			FtpSync.getInstance().downloadConfigurationFile(con);
-			break;
+		// case R.id.uploadFiles:
+		// FtpSync.getInstance().uploadFiles(con);
+		// break;
+		//
+		// case R.id.downloadFiles:
+		// FtpSync.getInstance().downloadConfigurationFile(con);
+		// break;
 
 		case R.id.saveFtpDetails:
 			saveFtpDetails();
@@ -119,10 +129,23 @@ public class FtpClient extends Activity implements OnClickListener {
 			editor.putString(Constants.KEY_FTP_PORT, port);
 			editor.putString(Constants.KEY_FTP_USER, user);
 			editor.putString(Constants.KEY_FTP_PASS, password);
+			editor.putBoolean(Constants.KEY_FTP_SCHEDULE_SWITCH,
+					scheduleSwitch.isChecked());
 			editor.apply();
 			Utilities.showToast(getApplicationContext(),
 					"FTP server credentials saved");
-			// finish();
+
+			if (scheduleSwitch.isChecked()) {
+				if (scheduledCalendar != null)
+					setAlarm(scheduledCalendar);
+				else
+					Utilities.showToast(getApplicationContext(),
+							"Please set a valid time");
+			} else {
+				if (isCurrentlySet)
+					cancelAlarm();
+				finish();
+			}
 
 		} else {
 			Utilities.showToast(getApplicationContext(),
@@ -169,13 +192,14 @@ public class FtpClient extends Activity implements OnClickListener {
 				else if (calSet.get(Calendar.AM_PM) == Calendar.PM)
 					am_pm = "PM";
 
-				String strHrsToShow = (calSet.get(Calendar.HOUR) == 0) ? "12"
+				scheduledTimeasString = (calSet.get(Calendar.HOUR) == 0) ? "12"
 						: Integer.toString(calSet.get(Calendar.HOUR));
-				schedule.setText(strHrsToShow + " : " + minute + " " + am_pm);
-				storeScheduleTimeString(strHrsToShow + " : " + minute + " "
-						+ am_pm);
-				setAlarm(calSet);
-				
+				scheduledTimeasString = scheduledTimeasString + " : " + minute
+						+ " " + am_pm;
+				schedule.setText(scheduledTimeasString);
+				storeScheduleTimeString(scheduledTimeasString);
+				scheduledCalendar = calSet;
+
 			}
 
 		}
@@ -191,9 +215,22 @@ public class FtpClient extends Activity implements OnClickListener {
 				pendingIntent);
 
 		alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-				targetCal.getTimeInMillis(), TimeUnit.MINUTES.toMillis(5),
+				targetCal.getTimeInMillis(), TimeUnit.MINUTES.toMillis(2),
 				pendingIntent);
-		
+		Utilities.showToast(getApplicationContext(), "Syncing Scheduled at "
+				+ scheduledTimeasString + " Everyday");
+		finish();
+
+	}
+
+	private void cancelAlarm() {
+
+		Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
+		PendingIntent pendingIntent = PendingIntent.getBroadcast(
+				getBaseContext(), 0, intent, 0);
+		AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+		alarmManager.cancel(pendingIntent);
+
 	}
 
 	private void storeScheduleTimeString(String time) {

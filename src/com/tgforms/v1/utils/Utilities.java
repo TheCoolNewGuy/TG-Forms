@@ -178,7 +178,7 @@ public class Utilities {
 	public static String getFtpPort(Context con) {
 		SharedPreferences preferences = PreferenceManager
 				.getDefaultSharedPreferences(con);
-		String port = preferences.getString(Constants.KEY_FTP_PORT, "0");
+		String port = preferences.getString(Constants.KEY_FTP_PORT, "");
 
 		return port;
 	}
@@ -203,4 +203,13 @@ public class Utilities {
 
 	}
 
+	public static boolean getScheduleSwitch(Context con) {
+
+		SharedPreferences preferences = PreferenceManager
+				.getDefaultSharedPreferences(con);
+		boolean isTurnedOn = preferences.getBoolean(Constants.KEY_FTP_SCHEDULE_SWITCH, false);
+
+		return isTurnedOn;
+
+	}
 }

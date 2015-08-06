@@ -32,7 +32,8 @@
         android:id="@+id/editFtpPort"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/promptFtpPort" />
+        android:layout_below="@id/promptFtpPort"
+        android:inputType="number" />
 
     <TextView
         android:id="@+id/promptFtpUser"
@@ -60,39 +61,43 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/promptFtpPass" />
 
-    <TextView
-        android:id="@+id/promptSetSchedule"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/scheduleLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/editFtpPass"
-        android:text="Set synching schedule : " />
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
 
-    <Button
-        android:id="@+id/editSchedule"
-        android:layout_width="fill_parent"
+        <TextView
+            android:id="@+id/promptSetSchedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editFtpPass"
+            android:layout_weight="1"
+            android:text="Sync Time : " />
+
+        <Button
+            android:id="@+id/editSchedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_weight="1"
+            android:background="@android:color/transparent" />
+    </LinearLayout>
+
+    <Switch
+        android:id="@+id/scheduleSwitch"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:layout_below="@id/promptSetSchedule" />
+        android:layout_below="@id/scheduleLayout"
+        android:text="Set auto syncing : " />
 
     <Button
         android:id="@+id/saveFtpDetails"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editSchedule"
-        android:text="Save" />
-
-    <Button
-        android:id="@+id/downloadFiles"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Download" />
-
-    <Button
-        android:id="@+id/uploadFiles"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/downloadFiles"
-        android:text="Upload" />
+        android:text="Save" />
 
 </RelativeLayout>
