@@ -13,6 +13,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -34,7 +35,7 @@ import com.tgforms.v1.form1.FragmentTwo.ActivityConnector;
 import com.tgforms.v1.utils.Utilities;
 import com.tgforms.v1.utils.Utilities.MyCallback;
 
-public class MainActivity extends FragmentActivity implements ActivityConnector {
+public class MainActivity<WelcomeActivity> extends FragmentActivity implements ActivityConnector {
 
 	ViewPager viewPager;
 
@@ -456,4 +457,19 @@ public class MainActivity extends FragmentActivity implements ActivityConnector 
 		} 
 	}
 
+	@Override
+	public void onBackPressed() {
+	    new AlertDialog.Builder(this)
+	        .setTitle("Really Exit?")
+	        .setMessage("Are you sure you want to exit?")
+	        .setNegativeButton(android.R.string.no, null)
+	        .setPositiveButton(android.R.string.yes, new OnClickListener() {
+
+	            public void onClick(DialogInterface arg0, int arg1) {
+	                MainActivity.super.onBackPressed();
+	            }
+	        }).create().show();
+	}
+	
+	
 }
