@@ -2109,7 +2109,6 @@ containing a value of this type.
         public static final int default_activity_button=0x7f050029;
         public static final int dialog=0x7f050015;
         public static final int disableHome=0x7f05000a;
-        public static final int downloadFiles=0x7f050059;
         public static final int dropdown=0x7f050016;
         public static final int editAOIcomments=0x7f05006a;
         public static final int editAOInotes=0x7f050069;
@@ -2121,7 +2120,7 @@ containing a value of this type.
         public static final int editIp=0x7f050061;
         public static final int editLocation=0x7f05007d;
         public static final int editPermitManager=0x7f05007e;
-        public static final int editSchedule=0x7f050057;
+        public static final int editSchedule=0x7f050058;
         public static final int editWorkComplete=0x7f0500c0;
         public static final int editWorkDetail=0x7f050080;
         public static final int edit_query=0x7f05003e;
@@ -2228,7 +2227,7 @@ containing a value of this type.
         public static final int promptFtpPort=0x7f050050;
         public static final int promptFtpUser=0x7f050052;
         public static final int promptIp=0x7f050060;
-        public static final int promptSetSchedule=0x7f050056;
+        public static final int promptSetSchedule=0x7f050057;
         public static final int promptYourIp=0x7f05005e;
         public static final int radio=0x7f05003a;
         public static final int radioElec=0x7f050082;
@@ -2236,8 +2235,10 @@ containing a value of this type.
         public static final int radioMecha=0x7f050083;
         public static final int relativeLayout1=0x7f05006c;
         public static final int save=0x7f05004c;
-        public static final int saveFtpDetails=0x7f050058;
+        public static final int saveFtpDetails=0x7f05005a;
         public static final int saveIp=0x7f050062;
+        public static final int scheduleLayout=0x7f050056;
+        public static final int scheduleSwitch=0x7f050059;
         public static final int screen=0x7f05000f;
         public static final int scroll=0x7f05007b;
         public static final int scrollView=0x7f050032;
@@ -2274,7 +2275,6 @@ containing a value of this type.
         public static final int title_template=0x7f05002f;
         public static final int topPanel=0x7f05002e;
         public static final int up=0x7f05001b;
-        public static final int uploadFiles=0x7f05005a;
         public static final int useLogo=0x7f050005;
         public static final int withText=0x7f050013;
         public static final int workCompleteSign=0x7f0500c1;

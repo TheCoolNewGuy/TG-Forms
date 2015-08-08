@@ -215,7 +215,7 @@ public class FtpClient extends Activity implements OnClickListener {
 				pendingIntent);
 
 		alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-				targetCal.getTimeInMillis(), TimeUnit.MINUTES.toMillis(2),
+				targetCal.getTimeInMillis(), TimeUnit.MINUTES.toMillis(1440),
 				pendingIntent);
 		Utilities.showToast(getApplicationContext(), "Syncing Scheduled at "
 				+ scheduledTimeasString + " Everyday");

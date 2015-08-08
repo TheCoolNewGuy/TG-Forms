@@ -585,7 +585,6 @@ int id customPanel 0x7f050034
 int id default_activity_button 0x7f050029
 int id dialog 0x7f050015
 int id disableHome 0x7f05000a
-int id downloadFiles 0x7f050059
 int id dropdown 0x7f050016
 int id editAOIcomments 0x7f05006a
 int id editAOInotes 0x7f050069
@@ -597,7 +596,7 @@ int id editFtpUser 0x7f050053
 int id editIp 0x7f050061
 int id editLocation 0x7f05007d
 int id editPermitManager 0x7f05007e
-int id editSchedule 0x7f050057
+int id editSchedule 0x7f050058
 int id editWorkComplete 0x7f0500c0
 int id editWorkDetail 0x7f050080
 int id edit_query 0x7f05003e
@@ -704,7 +703,7 @@ int id promptFtpPass 0x7f050054
 int id promptFtpPort 0x7f050050
 int id promptFtpUser 0x7f050052
 int id promptIp 0x7f050060
-int id promptSetSchedule 0x7f050056
+int id promptSetSchedule 0x7f050057
 int id promptYourIp 0x7f05005e
 int id radio 0x7f05003a
 int id radioElec 0x7f050082
@@ -712,8 +711,10 @@ int id radioLotoType 0x7f050081
 int id radioMecha 0x7f050083
 int id relativeLayout1 0x7f05006c
 int id save 0x7f05004c
-int id saveFtpDetails 0x7f050058
+int id saveFtpDetails 0x7f05005a
 int id saveIp 0x7f050062
+int id scheduleLayout 0x7f050056
+int id scheduleSwitch 0x7f050059
 int id screen 0x7f05000f
 int id scroll 0x7f05007b
 int id scrollView 0x7f050032
@@ -750,7 +751,6 @@ int id title 0x7f05002c
 int id title_template 0x7f05002f
 int id topPanel 0x7f05002e
 int id up 0x7f05001b
-int id uploadFiles 0x7f05005a
 int id useLogo 0x7f050005
 int id withText 0x7f050013
 int id workCompleteSign 0x7f0500c1

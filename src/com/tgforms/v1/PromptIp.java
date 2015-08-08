@@ -6,15 +6,10 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 
-import com.tgforms.v1.utils.Utilities;
-
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.net.DhcpInfo;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.InputFilter.LengthFilter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +18,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.tgforms.v1.utils.Utilities;
 
 public class PromptIp extends Activity implements OnClickListener{
 
